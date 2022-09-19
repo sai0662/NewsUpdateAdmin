@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "950238380873",
+    "project_id": "newsadminapp",
+    "storage_bucket": "newsadminapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950238380873:android:bd8478530a79b530495098",
+        "android_client_info": {
+          "package_name": "com.newsupdateadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950238380873-83cr798kee3lci586maahl4v5uglioms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newsupdateadmin",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "950238380873-nmaa8ilkqkgevo7fk67g26p3358p85u9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9V71ekLWssxzZ3gI5Ap6etUEOZnQxZVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950238380873-nmaa8ilkqkgevo7fk67g26p3358p85u9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "950238380873-kssfp3ce08gnbkbd0s3gauaoav1cile5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.newsapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
