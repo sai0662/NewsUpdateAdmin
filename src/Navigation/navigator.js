@@ -23,8 +23,44 @@ import auth from '@react-native-firebase/auth';
 import messaging from '@react-native-firebase/messaging';
 import Register from '../Screens/BeforeLogin/Register';
 import Editpage from '../Screens/AfterLogin/Editpage';
+import AddCategory from '../Screens/AfterLogin/AddCategory';
+import CategoriesList from '../Screens/AfterLogin/CategoriesList';
+import {Provider} from 'react-redux';
+import store from '../Redux/Store/store';
+import EditCategory from '../Screens/AfterLogin/EditCategory';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
+export const MyDrawer = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen
+        name="mytabs"
+        options={{headerShown: false}}
+        component={MyTabs}
+      />
+    </Drawer.Navigator>
+  );
+};
+
+export const MyTabs = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" options={{headerShown: false}} component={Home} />
+      <Tab.Screen name="Details" component={Details} />
+      <Tab.Screen name="AddPost" component={AddPost} />
+      <Tab.Screen name="EditPage" component={Editpage} />
+      <Tab.Screen name="AddCategory" component={AddCategory} />
+      <Tab.Screen name="categorilist" component={CategoriesList} />
+      <Tab.Screen name="EditCategory" component={EditCategory} />
+    </Tab.Navigator>
+  );
+};
 const Navigator = ({navigation, route, params}) => {
   const [user, setUser] = useState({loading: true, currentUser: null});
   useEffect(() => {
@@ -78,28 +114,41 @@ const Navigator = ({navigation, route, params}) => {
   };
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={'Login'}
-        screenOptions={{
-          headerShown: false,
-        }}>
-        {user.currentUser === null ? (
-          <>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Details" component={Details} />
-            <Stack.Screen name="AddPost" component={AddPost} />
-            <Stack.Screen name="EditPage" component={Editpage} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={'Login'}
+          screenOptions={{
+            headerShown: false,
+          }}>
+          {user.currentUser === null ? (
+            <>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen
+                name="mydrawer"
+                options={{headerShown: false}}
+                component={MyDrawer}
+              />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
 export default Navigator;
+
+{
+  /* <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Details" component={Details} />
+              <Stack.Screen name="AddPost" component={AddPost} />
+              <Stack.Screen name="EditPage" component={Editpage} />
+              <Stack.Screen name="AddCategory" component={AddCategory} />
+              <Stack.Screen name="categorilist" component={CategoriesList} />
+              <Stack.Screen name="EditCategory" component={EditCategory} /> */
+}

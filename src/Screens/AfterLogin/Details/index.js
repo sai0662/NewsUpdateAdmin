@@ -13,13 +13,15 @@ import {
   Image,
   ActivityIndicator,
   ImageBackground,
+  Alert,
 } from 'react-native';
 const Width = Dimensions.get('window').width;
 import firestore from '@react-native-firebase/firestore';
 import toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
-
+import {deletepost} from '../../../Redux/Action/deletenewspostsactios';
+import {useSelector, useDispatch} from 'react-redux';
 function Details({navigation, route, navigation: {goBack}}) {
   var id = route.params.id ? route.params.id : '';
   var title = route.params.title ? route.params.title : '';
@@ -62,18 +64,52 @@ function Details({navigation, route, navigation: {goBack}}) {
     }
   };
 
+  // const deleteDocument = id => {
+  //   firestore()
+  //     .collection('newposts')
+  //     .doc(id)
+  //     .delete()
+  //     .then(() => {
+  //       toast.show('post deleted successfully');
+  //       getData();
+  //     })
+  //     .catch(error => {
+  //       toast.show('Error to Delete');
+  //     });
+  // };
+
+  //delete post
+  const dispatch = useDispatch();
   const deleteDocument = id => {
-    firestore()
-      .collection('newposts')
-      .doc(id)
-      .delete()
-      .then(() => {
-        toast.show('post deleted successfully');
-        getData();
-      })
-      .catch(error => {
-        toast.show('Error to Delete');
-      });
+    dispatch(deletepost(id));
+    // firestore()
+    //   .collection('ghosts')
+    //   .doc(id)
+    //   .delete()
+    //   .then(() => {
+    //     toast.show('post deleted successfully');
+    //     getData();
+    //   })
+    //   .catch(error => {
+    //     toast.show('Error to Delete');
+    //   });
+  };
+  const preDelete = id => {
+    Alert.alert('Alert', 'Are you sure, want to delete?', [
+      {
+        text: 'Cancel',
+        onPress: () => {
+          console.log('cancel pressed');
+        },
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => {
+          deleteDocument(id);
+        },
+      },
+    ]);
   };
 
   const UnRead = async id => {
@@ -116,7 +152,7 @@ function Details({navigation, route, navigation: {goBack}}) {
         <View style={{marginLeft: 20}}>
           <TouchableOpacity
             onPress={() => {
-              deleteDocument(id);
+              preDelete(id);
             }}>
             <Image
               style={styles.deleteButton}
